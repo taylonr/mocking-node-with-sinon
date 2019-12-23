@@ -1,0 +1,20 @@
+{
+  "name": "mock-node-with-sinon",
+  "version": "1.0.0",
+  "description": "Repo used for the Pluralsight course with the same name.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -w ./index.js",
+    "test": "mocha -w -R progress ./**/*.spec.js"
+  },
+  "author": "Nate Taylor",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "ejs": "^2.7.1",
+    "ejs-lint": "^0.3.0",
+    "express": "^4.17.1",
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0"
+  }
+}

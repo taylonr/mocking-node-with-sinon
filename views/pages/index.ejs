@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head> <% include ../partials/head %> </head>
+
+    <body>
+        <div class="flex flex-column h-100">
+            <header> <% include ../partials/header %> </header>
+            <div class="flex-grow">
+                <div class="flex overflow-hidden h-100">
+                    <nav class="left align-center pt3 ph3 w-25 overflow-hidden">
+                        <form method="POST" action="/new-file" class="flex justify-between pb2 mb3">
+                            <input type="text" name="filename" class="black mr2 w-100" />
+                            <button class="btn-oval pr5" type="submit">+</button>
+                        </form>
+                        <div class="overflow-auto">
+                            <div class="flex flex-column overflow-auto"> <% articles.forEach(function (article) { %> <%if(article === selectedFile) { %> <a href="/data/<%= article %>" class="active no-underline pb2 pl2"><%= article %></a> <%} else { %> <a href="/data/<%= article %>" class="no-underline pb2 pl2"><%= article %></a> <% } %> <% }); %> </div>
+                        </div>
+                    </nav>
+                    <form method="POST" action="/save-file" class="ph3 pt3 w-100">
+                        <input type="hidden" name="filename" value="<%= selectedFile %>" />
+                        <div class="flex">
+                            <textarea class="w-100 vh-75" name="contents"><%if (content) { %> <%= content %> <%} %></textarea>
+                        </div>
+                        <div class="flex justify-end w-100 pt3 mb3">
+                            <button class="btn-oval" type="submit">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
