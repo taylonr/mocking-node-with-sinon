@@ -1,7 +1,9 @@
 const { expect } = require("chai");
+const fileManagement = require("./file.management");
 
 describe("File Management", () => {
-  it("Should be true", () => {
-    expect(true).to.be.true;
+  it("Should delete the file specified", () => {
+    const result = fileManagement.deleteFile("test.delete.txt");
+    expect(result).to.be.undefined;
   });
 });
