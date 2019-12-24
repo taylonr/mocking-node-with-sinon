@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -w ./index.js",
-    "test": "mocha -w -R progress ./**/*.spec.js"
+    "test": "mocha -R progress ./**/*.spec.js"
   },
   "author": "Nate Taylor",
   "license": "ISC",
