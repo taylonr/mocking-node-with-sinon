@@ -8,6 +8,13 @@ module.exports = {
 
     return writeFileSync(`./data/${filename}`, "", { flag: "wx" });
   },
+  createFileInjected: (filename, fs) => {
+    if (!filename) {
+      throw new Error("Must supply file name");
+    }
+
+    return fs.writeFileSync(`./data/${filename}`, "", { flag: "wx" });
+  },
   deleteFile: filename => {
     if (!filename) {
       throw new Error("Must supply file name");
