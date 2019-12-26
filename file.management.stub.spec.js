@@ -1,7 +1,7 @@
 const { expect } = require("chai");
-const { createSandbox, spy } = require("sinon");
+const { createSandbox } = require("sinon");
 const fs = require("fs");
-const fileManagement = require("./file.management");
+const proxyquire = require("proxyquire");
 
 describe("File Management", () => {
   it("true should be true", () => {
