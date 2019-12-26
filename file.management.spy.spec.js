@@ -1,6 +1,7 @@
 const { expect } = require("chai");
-const { createSandbox, spy } = require("sinon");
+const { createSandbox } = require("sinon");
 const fs = require("fs");
+const proxyquire = require("proxyquire");
 
 describe("File Management", () => {
   const sandbox = createSandbox();
@@ -14,7 +15,7 @@ describe("File Management", () => {
   describe("When creating a file", () => {
     it("Should create a new file", () => {
       const writeSpy = sandbox.spy(fs, "writeFileSync");
-      const fileManagement = require("./file.management");
+      const fileManagement = proxyquire("./file.management", { fs });
 
       fileManagement.createFile("test.txt");
       expect(writeSpy.calledWith("./data/test.txt", "")).to.be.true;
@@ -29,7 +30,7 @@ describe("File Management", () => {
 
     it("Should not create a new file if no name is specified", () => {
       const writeSpy = sandbox.spy(fs, "writeFileSync");
-      const fileManagement = require("./file.management");
+      const fileManagement = proxyquire("./file.management", { fs });
 
       try {
         fileManagement.createFile();
@@ -39,7 +40,7 @@ describe("File Management", () => {
 
     it("Should throw an exception if the file exists", () => {
       const writeSpy = sandbox.spy(fs, "writeFileSync");
-      const fileManagement = require("./file.management");
+      const fileManagement = proxyquire("./file.management", { fs });
 
       try {
         fileManagement.createFile("test.txt");
