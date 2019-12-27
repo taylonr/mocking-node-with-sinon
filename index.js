@@ -11,12 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static(__dirname + "/public/"));
 
 app.get("/", (req, res) => {
-  const files = fileManagement.getAllFiles();
-  res.render("pages/index", {
-    articles: files,
-    content: null,
-    selectedFile: null
-  });
+  fileManagement.getAllFiles((err, data) =>
+    res.render("pages/index", {
+      articles: data,
+      content: null,
+      selectedFile: null
+    })
+  );
 });
 
 app.get("/data/:file", (req, res) => {
