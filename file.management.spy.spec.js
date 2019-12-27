@@ -37,18 +37,5 @@ describe("File Management", () => {
       } catch (err) {}
       expect(writeSpy.notCalled).to.be.true;
     });
-
-    it("Should throw an exception if the file exists", () => {
-      const writeSpy = sandbox.spy(fs, "writeFileSync");
-      const fileManagement = proxyquire("./file.management", { fs });
-
-      try {
-        fileManagement.createFile("test.txt");
-      } catch (error) {
-        console.log(writeSpy.exceptions);
-      }
-
-      expect(writeSpy.threw()).to.be.true;
-    });
   });
 });
