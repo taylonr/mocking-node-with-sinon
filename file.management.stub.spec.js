@@ -1,17 +1,15 @@
 const { expect } = require("chai");
-const { createSandbox } = require("sinon");
+const sinon = require("sinon");
 const fs = require("fs");
 const proxyquire = require("proxyquire");
 
-describe.skip("File Management Stub", () => {
-  const sandbox = createSandbox();
-
+describe("File Management Stub", () => {
   afterEach(() => {
-    sandbox.restore();
+    sinon.restore();
   });
 
   it("Should create a file", () => {
-    const writeStub = sandbox.stub(fs, "writeFileSync");
+    const writeStub = sinon.stub(fs, "writeFileSync");
 
     const fileManagement = proxyquire("./file.management", { fs });
 
@@ -21,7 +19,7 @@ describe.skip("File Management Stub", () => {
   });
 
   it("Should create a file", () => {
-    const writeStub = sandbox.stub(fs, "writeFileSync");
+    const writeStub = sinon.stub(fs, "writeFileSync");
     writeStub.throws(new Error("FAIL"));
     const fileManagement = proxyquire("./file.management", { fs });
 
@@ -29,8 +27,8 @@ describe.skip("File Management Stub", () => {
   });
 
   it("createFileSafe should create a file named test1.txt when test.txt already exists", () => {
-    const writeStub = sandbox.stub(fs, "writeFileSync");
-    const readDirStub = sandbox.stub(fs, "readdirSync");
+    const writeStub = sinon.stub(fs, "writeFileSync");
+    const readDirStub = sinon.stub(fs, "readdirSync");
 
     const fileManagement = proxyquire("./file.management", { fs });
 
@@ -44,7 +42,7 @@ describe.skip("File Management Stub", () => {
   });
 
   it("getAllFiles should return a list of files", () => {
-    const readdir = sandbox.stub(fs, "readdir");
+    const readdir = sinon.stub(fs, "readdir");
 
     const fileManagement = proxyquire("./file.management", { fs });
 
@@ -56,10 +54,10 @@ describe.skip("File Management Stub", () => {
   });
 
   it("getAllFilesPromise should return a list of files", () => {
-    const readdir = sandbox.stub(fs, "readdir");
+    const readdir = sinon.stub(fs, "readdir");
 
     const util = {
-      promisify: sandbox.stub().returns(readdir)
+      promisify: sinon.stub().returns(readdir)
     };
 
     const fileManagement = proxyquire("./file.management", { fs, util });
