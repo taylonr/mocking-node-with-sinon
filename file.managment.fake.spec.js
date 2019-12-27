@@ -19,7 +19,7 @@ describe("File Management Fake", () => {
 
   it("Should throw an exception when the file already exists", () => {
     console.log(sinon.fake);
-    const writeFake = sinon.fake.throws(new Error()).returns(1);
+    const writeFake = sinon.fake.throws(new Error());
 
     sinon.replace(fs, "writeFileSync", writeFake);
     const fileManagement = proxyquire("./file.management", { fs });
