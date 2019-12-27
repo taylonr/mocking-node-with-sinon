@@ -3,7 +3,7 @@ const { createSandbox } = require("sinon");
 const fs = require("fs");
 const proxyquire = require("proxyquire");
 
-describe("File Management", () => {
+describe.skip("File Management", () => {
   const sandbox = createSandbox();
 
   beforeEach(() => {});
