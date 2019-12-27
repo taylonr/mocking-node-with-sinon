@@ -1,4 +1,11 @@
-const { readdirSync, readFileSync, unlinkSync, writeFileSync } = require("fs");
+const {
+  readdir,
+  readdirSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync
+} = require("fs");
+const util = require("util");
 
 module.exports = {
   createFile: filename => {
@@ -21,7 +28,7 @@ module.exports = {
     }
 
     try {
-      writeFileSync(`./data/${filename}`, "", { flag: "wx" });
+      const result = writeFileSync(`./data/${filename}`, "", { flag: "wx" });
     } catch (error) {
       const files = readdirSync("./data");
       const [name, extension] = filename.split(".");
@@ -51,8 +58,12 @@ module.exports = {
 
     return readFileSync(`./data/${filename}`);
   },
-  getAllFiles: () => {
-    return readdirSync("./data");
+  getAllFiles: cb => {
+    readdir("./data", cb);
+  },
+  getAllFilesPromise: () => {
+    const readPromise = util.promisify(readdir);
+    return readPromise("./data");
   },
   saveFile: (filename, contents) => {
     if (!filename) {
