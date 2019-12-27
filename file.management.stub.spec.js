@@ -3,7 +3,7 @@ const sinon = require("sinon");
 const fs = require("fs");
 const proxyquire = require("proxyquire");
 
-describe("File Management Stub", () => {
+describe.skip("File Management Stub", () => {
   afterEach(() => {
     sinon.restore();
   });
@@ -18,7 +18,7 @@ describe("File Management Stub", () => {
     expect(writeStub.callCount).to.equal(1);
   });
 
-  it("Should create a file", () => {
+  it("Should throw an exception when the file already exists", () => {
     const writeStub = sinon.stub(fs, "writeFileSync");
     writeStub.throws(new Error("FAIL"));
     const fileManagement = proxyquire("./file.management", { fs });

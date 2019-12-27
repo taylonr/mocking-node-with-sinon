@@ -28,7 +28,7 @@ module.exports = {
     }
 
     try {
-      const result = writeFileSync(`./data/${filename}`, "", { flag: "wx" });
+      writeFileSync(`./data/${filename}`, "", { flag: "wx" });
     } catch (error) {
       const files = readdirSync("./data");
       const [name, extension] = filename.split(".");

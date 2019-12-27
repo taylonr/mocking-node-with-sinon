@@ -1,31 +1,41 @@
 const { expect } = require("chai");
-const { sinon, replace } = require("sinon");
+const sinon = require("sinon");
 const fs = require("fs");
 const proxyquire = require("proxyquire");
 
-describe.skip("File Management Fake", () => {
+describe("File Management Fake", () => {
   afterEach(() => {
     sinon.restore();
   });
 
   it("Should create a new file", () => {
-    const writeSpy = sinon.fake();
-    replace(fs, "writeFileSync", writeSpy);
+    const writeFake = sinon.fake();
+    sinon.replace(fs, "writeFileSync", writeFake);
     const fileManagement = proxyquire("./file.management", { fs });
 
     fileManagement.createFile("test.txt");
-    expect(writeSpy.calledWith("./data/test.txt", "")).to.be.true;
+    expect(writeFake.calledWith("./data/test.txt", "")).to.be.true;
   });
 
-  //   it("Should create a new file", () => {
-  //     const writeFake = sinon().fake.returns(1);
+  it("Should throw an exception when the file already exists", () => {
+    console.log(sinon.fake);
+    const writeFake = sinon.fake.throws(new Error()).returns(1);
 
-  //     replace(fs, "writeFileSync", writeFake);
+    sinon.replace(fs, "writeFileSync", writeFake);
+    const fileManagement = proxyquire("./file.management", { fs });
 
-  //     const fileManagement = proxyquire("./file.management", { fs });
+    expect(() => fileManagement.createFile("test.txt")).to.throw();
+  });
 
-  //     fileManagement.createFile("test.txt");
+  it("getAllFiles should return a list of files", () => {
+    const readFake = sinon.fake.yields(null, ["test.txt"]);
 
-  //     expect(writeFake.callCount).to.eql(1);
-  //   });
+    sinon.replace(fs, "readdir", readFake);
+
+    const fileManagement = proxyquire("./file.management", { fs });
+
+    fileManagement.getAllFiles((err, data) => {
+      expect(data).to.eql(["test.txt"]);
+    });
+  });
 });
