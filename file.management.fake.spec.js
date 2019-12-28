@@ -3,7 +3,7 @@ const sinon = require("sinon");
 const fs = require("fs");
 const proxyquire = require("proxyquire");
 
-describe("File Management Fake", () => {
+describe.skip("File Management Fake", () => {
   afterEach(() => {
     sinon.restore();
   });
