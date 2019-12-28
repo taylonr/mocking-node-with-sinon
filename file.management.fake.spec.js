@@ -8,5 +8,7 @@ describe("File Management Stub", () => {
     sinon.restore();
   });
 
-  it("True should be true", () => {});
+  it("True should be true", () => {
+    expect(true).to.be.true;
+  });
 });
