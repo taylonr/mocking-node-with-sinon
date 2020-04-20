@@ -18,7 +18,7 @@ describe("File Management Stub", () => {
     expect(writeStub.callCount).to.equal(1);
   });
 
-  it("Should create a file", () => {
+  it("Should throw an exception if file already exists", () => {
     const writeStub = sinon.stub(fs, "writeFileSync");
     writeStub.throws(new Error("FAIL"));
     const fileManagement = proxyquire("./file.management", { fs });
